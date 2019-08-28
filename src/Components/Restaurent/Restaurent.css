@@ -11,16 +11,6 @@
   font-size: 0.9em;
 }
 
-.misc-items::before {
-  content: "";
-}
-.misc-items:first::before{
-  content: none
-}
-
-.misc-items::after {
-  content: "";
-}
 .restaurent-image{
   width: inherit;
   height: -webkit-fill-available;
@@ -29,4 +19,11 @@
   border: green solid;
   background-color: #018801;
   color: white;
+}
+.restaurent-desc small {
+  display: inline-block;
+  width: -webkit-fill-available;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 }

@@ -44,7 +44,7 @@ class Restaurents extends Component {
   }
   renderRestaurent() {
     let restaurentElemList = [];
-    for (let i = 0; i < this.state.totalItems; i++) {
+    for (let i = 1; i <= this.state.totalItems; i++) {
       if (this.state.restaurentList[i]) {
         restaurentElemList.push(
           <div className="col-sm-4 mt-2"><Restaurent
@@ -63,19 +63,34 @@ class Restaurents extends Component {
     return restaurentElemList;
 
   }
-  loadFiveMore() {
-    debugger
+  loadMore() {
+    this.setState({ totalItems: this.state.totalItems + 6 });
+    if (this.state.totalItems >= this.state.restaurentList.length) {
+      this.setState({ moreItemExist: false })
+    }
     this.setState({ totalItems: this.state.totalItems + 6 });
     debugger
+  }
+  getNextButton() {
+    if (this.state.moreItemExist) {
+      return (<div className="col-sm-4 mt-2">
+        <div className="restaurent next-tile">
+          <div type="button" onClick={() => this.loadMore()}>
+            +{this.state.restaurentList.length - this.state.totalItems} More
+          </div>
+        </div>
+      </div>);
+    }
   }
   render() {
     return (
       <section>
         <div className="row mt-1">
           {this.renderRestaurent()}
-          <div className="col-sm-4">
-            <button type="button" onClick={() => this.loadFiveMore()}>Lod 6 more</button>
-          </div>
+          {
+            this.getNextButton()
+          }
+
         </div>
       </section>
     );
