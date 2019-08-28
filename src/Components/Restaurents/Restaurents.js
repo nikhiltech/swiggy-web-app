@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import RestaurentDataList from "./../../restaurent-data.json";
 import Restaurent from "../Restaurent/Restaurent";
+import classes from "./Restaurents.css";
 
 class Restaurents extends Component {
   constructor(props) {
@@ -12,10 +13,6 @@ class Restaurents extends Component {
       moreItemExist: true
     };
   }
-  componentDidMount() {
-    const something = Restaurents.getRestautentList();
-    this.setState({ restaurantList: something });
-  }
   static getDerivedStateFromProps(props, current_state) {
     if (current_state.category !== props.category) {
       return {
@@ -25,16 +22,6 @@ class Restaurents extends Component {
     }
     return null
   }
-  componentDidUpdate(prevProps) {
-    if (prevProps.category !== this.props.category) {
-      this.setState({
-        category: this.props.category
-      })
-    }
-  }
-  /* componentWillReceiveProps(nextProps) {
-    this.setState({ restaurantList: this.getRestautentList() });
-  } */
   static getRestautentList(category) {
     for (let categoryObj of RestaurentDataList) {
       if (categoryObj.category === category) {
@@ -64,9 +51,15 @@ class Restaurents extends Component {
 
   }
   loadMore() {
-    this.setState({ totalItems: this.state.totalItems + 6 });
-    if (this.state.totalItems >= this.state.restaurentList.length) {
-      this.setState({ moreItemExist: false })
+    if (this.state.totalItems + 6 >= this.state.restaurentList.length) {
+      this.setState({
+        totalItems: this.state.restaurentList.length,
+        moreItemExist: false
+      });
+    } else {
+      this.setState({
+        totalItems: this.state.totalItems + 6
+      });
     }
     this.setState({ totalItems: this.state.totalItems + 6 });
     debugger
