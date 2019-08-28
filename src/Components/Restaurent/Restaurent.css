@@ -1,0 +1,32 @@
+.restaurent {
+  border: #cccccc 1px solid;
+  height: 300px;
+}
+.restaurent>div {
+  height: 220px;
+}
+.misc-items {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+}
+
+.misc-items::before {
+  content: "";
+}
+.misc-items:first::before{
+  content: none
+}
+
+.misc-items::after {
+  content: "";
+}
+.restaurent-image{
+  width: inherit;
+  height: -webkit-fill-available;
+}
+.ratings {
+  border: green solid;
+  background-color: #018801;
+  color: white;
+}
