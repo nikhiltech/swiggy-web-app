@@ -31,7 +31,7 @@ class Restaurents extends Component {
   }
   renderRestaurent() {
     let restaurentElemList = [];
-    for (let i = 1; i <= this.state.totalItems; i++) {
+    for (let i = 0; i < this.state.totalItems; i++) {
       if (this.state.restaurentList[i]) {
         restaurentElemList.push(
           <div className="col-sm-4 mt-2"><Restaurent

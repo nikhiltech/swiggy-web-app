@@ -5,15 +5,20 @@ import classes from "./Categories.css";
 class Categories extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            category: this.props.category
+        }
     }
-
+    changeCategory(category) {
+        this.props.onClick(category);
+        this.setState({ category: category })
+    }
     getCategoryList = () => {
         let categoryElemList = []
         for (let categoryObj of RestaurentDataList) {
             const liElement =
-                <li className={"nav-item " + this.props.category === categoryObj.category ? 'active' : ''}>
-                    <a onClick={() => this.props.onClick(categoryObj.category)}>
+                <li className={"nav-item " + (this.state.category === categoryObj.category ? 'active' : '')}>
+                    <a className="nav-link ml-2" onClick={() => this.changeCategory(categoryObj.category)}>
                         {categoryObj.category}
                     </a>
                 </li>
@@ -23,7 +28,7 @@ class Categories extends Component {
     }
     render() {
         return (
-            <nav className="navbar bg-light">
+            <nav className="navbar">
                 <ul className="category navbar-nav">
                     {this.getCategoryList()}
                 </ul>
