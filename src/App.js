@@ -25,7 +25,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App container-fluid">
         <div className="row">
           <div className="col-sm-3">
             <Categories onClick={(category) => this.handleCategorySelection(category)} />
