@@ -1,6 +1,13 @@
 .restaurent {
-  border: #cccccc 1px solid;
   height: 300px;
+}
+.restaurent:hover{
+
+  border: #cccccc 1px solid;
+  -moz-box-shadow: 0 0 10px #ccc;
+  -webkit-box-shadow: 0 0 10px #ccc;
+  box-shadow: 0 0 10px #ccc;
+    
 }
 .restaurent>div {
   height: 220px;

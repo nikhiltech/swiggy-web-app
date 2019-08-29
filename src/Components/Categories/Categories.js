@@ -17,7 +17,7 @@ class Categories extends Component {
         let categoryElemList = []
         for (let categoryObj of RestaurentDataList) {
             const liElement =
-                <li className={"nav-item " + (this.state.category === categoryObj.category ? 'active' : '')}>
+                <li className={"nav-item " + (this.state.category === categoryObj.category ? 'active' : '')} key={categoryObj.category}>
                     <a className="nav-link ml-2" onClick={() => this.changeCategory(categoryObj.category)}>
                         {categoryObj.category}
                     </a>
