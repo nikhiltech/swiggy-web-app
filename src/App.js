@@ -7,14 +7,9 @@ import RestaurentDataList from "./restaurent-data.json";
 
 class App extends Component {
   handleCategorySelection = (selectedCategory) => {
-    for (let categoryObj of RestaurentDataList) {
-      if (categoryObj.category === selectedCategory) {
-        this.setState({
-          selectedCategory: selectedCategory
-        });
-        return;
-      }
-    }
+    this.setState({
+      selectedCategory: selectedCategory
+    });
   }
   constructor(props) {
     super(props);

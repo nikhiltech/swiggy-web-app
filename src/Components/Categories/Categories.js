@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import RestaurentDataList from "./../../restaurent-data.json";
 import classes from "./Categories.css";
+import AppConstats from "./../../constants";
 
 class Categories extends Component {
     constructor(props) {
@@ -14,16 +15,21 @@ class Categories extends Component {
         this.setState({ category: category })
     }
     getCategoryList = () => {
+        debugger
         let categoryElemList = []
-        for (let categoryObj of RestaurentDataList) {
+        let categories = RestaurentDataList.map(restaurentDataObj => restaurentDataObj.category);
+        categories.push(AppConstats.categoryNames.swiggyExcusive)
+        categories.push(AppConstats.categoryNames.seeAll)
+        for (let category of categories) {
             const liElement =
-                <li className={"nav-item " + (this.state.category === categoryObj.category ? 'active' : '')} key={categoryObj.category}>
-                    <a className="nav-link ml-2" onClick={() => this.changeCategory(categoryObj.category)}>
-                        {categoryObj.category}
+                <li className={"nav-item " + (this.state.category === category ? 'active' : '')} key={category}>
+                    <a className="nav-link ml-2" onClick={() => this.changeCategory(category)}>
+                        {category}
                     </a>
                 </li>
             categoryElemList.push(liElement);
         }
+
         return categoryElemList;
     }
     render() {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import RestaurentDataList from "./../../restaurent-data.json";
 import Restaurent from "../Restaurent/Restaurent";
+import AppConstants from "../../constants";
 import classes from "./Restaurents.css";
 
 class Restaurents extends Component {
@@ -8,7 +9,7 @@ class Restaurents extends Component {
     super(props);
     this.state = {
       category: this.props.category,
-      restaurentList: Restaurents.getRestautentList(this.props.category),
+      restaurentList: Restaurents.getCategotyFilteredRestautentList(this.props.category),
       totalItems: 5,
       moreItemExist: true
     };
@@ -28,15 +29,43 @@ class Restaurents extends Component {
   }
   static getDerivedStateFromProps(props, current_state) {
     if (current_state.category !== props.category) {
+      let newCategory = props.category;
+      let newRestaurentList = [];
+      let newTotalItems = 5;
+      if (props.category === AppConstants.categoryNames.swiggyExcusive) {
+        newRestaurentList = Restaurents.getExclusiveRestautentList();
+        newTotalItems = newRestaurentList.length
+      } else if (props.category === AppConstants.categoryNames.seeAll) {
+        newRestaurentList = Restaurents.getAllRestautentList();
+        newTotalItems = newRestaurentList.length
+      } else {
+        newRestaurentList = Restaurents.getCategotyFilteredRestautentList(props.category);
+      }
       return {
         category: props.category,
-        totalItems: 5,
-        restaurentList: Restaurents.getRestautentList(props.category),
+        restaurentList: newRestaurentList,
+        totalItems: newTotalItems,
       }
     }
     return null
   }
-  static getRestautentList(category) {
+  static getExclusiveRestautentList() {
+    let restaurentList = [];
+    for (let categoryObj of RestaurentDataList) {
+      let categoryExclusiveRestaurent =
+        categoryObj.restaurantList.filter(restaurentObj => restaurentObj.isExlusive)
+      restaurentList = restaurentList.concat(categoryExclusiveRestaurent);
+    }
+    return restaurentList;
+  }
+  static getAllRestautentList() {
+    let allRestaurentList = [];
+    for (let categoryObj of RestaurentDataList) {
+      allRestaurentList = allRestaurentList.concat(categoryObj.restaurantList)
+    }
+    return allRestaurentList;
+  }
+  static getCategotyFilteredRestautentList(category) {
     for (let categoryObj of RestaurentDataList) {
       if (categoryObj.category === category) {
         return categoryObj.restaurantList;
@@ -52,7 +81,7 @@ class Restaurents extends Component {
     for (let i = 0; i < this.state.totalItems; i++) {
       if (this.state.restaurentList[i]) {
         restaurentElemList.push(
-          <div className="col-sm-4 mt-5" key={this.state.category + this.state.restaurentList[i].name}><Restaurent
+          <div className="col-sm-4 mt-5" key={i}><Restaurent
             name={this.state.restaurentList[i].name}
             ratings={this.state.restaurentList[i].ratings}
             foodTypes={this.state.restaurentList[i].food_types}
